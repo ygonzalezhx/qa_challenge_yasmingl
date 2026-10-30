@@ -1,0 +1,26 @@
+{
+  "bookAppointment": {
+    "doctor": "Dr. Laura Martínez - Pediatrics",
+    "appointmentDate": "2026-12-22",
+    "timeSlot": "11:00",
+    "notes": "Automated test: first visit with Dr Laura"
+  },
+  "rescheduleAppointment": {
+    "initial": {
+      "doctor": "Dr. Ana García - Cardiology",
+      "daysFromToday": 10,
+      "timeSlot": "09:00",
+      "notes": "Automated test: appointment to reschedule"
+    },
+    "new": {
+      "newAppointmentDate": "2026-11-11",
+      "newTimeSlot": "11:00"
+    }
+  },
+  "cancelAppointment": {
+    "doctor": "Dr. [name]",
+    "daysFromToday": 14,
+    "timeSlot": "10:00",
+    "notes": "Automated test: appointment to cancel"
+  }
+}
