@@ -15,7 +15,7 @@ test.describe('Reschedule appointemnt', () => {
     
     const { newAppointmentDate, newTimeSlot, notes } = testData.rescheduleAppointment
     
-  test('End to end book a new appointment flow', async ({page}) => {
+  test('End to end reschedule an existing appointment flow',{tag: '@known-bug'}, async ({page}) => {
     loginObj = new LoginPage(page)
     appObj = new AppointmentsPage(page)
 

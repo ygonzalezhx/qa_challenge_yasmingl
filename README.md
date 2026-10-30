@@ -7,12 +7,12 @@ End-to-end UI automation for the MedAppoint appointment management app, built wi
 | # | Flow | Steps | Key assertions |
 |---|------|-------|----------------|
 | 1 | **Book an appointment** (main flow) | Login → Appointments → Book new appointment → Verify → Logout | Success message; appointment listed with the selected doctor, date and time and with the expected status; session ends after logout |
-| 2 | **Reschedule an appointment** | Login → Appointments → Select a valid appointment → Reschedule → Verify | Same appointment shows the new date/time; status is correct; change persists after page reload |
+| 2 | **Reschedule an appointment** | Login → Appointments → Select a valid appointment → Reschedule → Verify | Same appointment shows the new date/time; status is correct |
 | 3 | **Cancel an appointment** | Login → Appointments → Select a valid appointment → Cancel → Verify | Success message; status is *Canceled*; change persists after page reload |
 
-**Modules touched:** Dashboard (post-login landing), Appointments (main target), Doctors (doctor and slot selection while booking), Notifications (not asserted; see *Out of scope*).
+**Modules touched:** Login (post-login landing), Appointments (main target), Doctors (not asserted; see *Out of scope*), Notifications (not asserted; see *Out of scope*).
 
-**Out of scope:** negative and boundary scenarios, API testing (covered in the Postman collection), cross-browser and non-functional testing, notification content.
+**Out of scope:** negative and boundary scenarios, API testing (covered in the Postman collection), cross-browser and non-functional testing, doctors information, notification content.
 
 ## Tech stack
 
@@ -32,13 +32,13 @@ automation/
 ├── pages/                      # Page Objects: locators and actions only
 │   ├── BasePage.ts
 │   ├── LoginPage.ts
-│   ├── DashboardPage.ts
+│   ├── AppointmentCreationPage.ts
 │   ├── AppointmentsPage.ts
 │
-├── fixtures/
-│   └── test-fixtures.ts        # custom fixtures: page objects, logged-in session
+├── test-data/
+│   └── appointments.json       # json with appointment data to book, reschedule and cancel flows
 ├── utils/
-│   ├── date-helper.ts          # dynamic future dates and slots
+│   ├── date-helper.ts          # convert dates and timeslots in required format
 │   └── env.ts                  # typed, validated environment variables
 ├── .env.example
 ├── .gitignore
@@ -50,10 +50,9 @@ automation/
 
 **Design decisions**
 - **POM**: pages expose actions (`bookAppointment()`, `reschedule()`, `cancel()`); assertions live in the tests.
-- **Fixtures**: page objects and the authenticated session are injected through Playwright fixtures; tests do not instantiate pages manually.
-- **Independent tests**: each test creates (or selects) its own appointment as a precondition, with dynamically calculated dates; no test depends on another one's data or execution order.
+- **Independent tests**: each test creates (or selects) its own appointment as a precondition; no test depends on another one's data or execution order.
 - **Locators**: role-, label- or `data-testid`-based; no brittle CSS/XPath unless last resort.
-- **No hardcoded data**: URL and credentials come from environment variables; dates and slots are generated at runtime.
+- **No hardcoded data**: URL and credentials come from environment variables; dates and slots are taken from data files.
 - **Single account**: tests run serially (`workers: 1`) because they share one patient account and logout invalidates the session.
 
 ## Prerequisites
@@ -96,7 +95,7 @@ USER_PASSWORD=[patient password]
 npm test                 # run all flows (headless)
 npm run test:headed      # run with a visible browser
 npm run test:ui          # Playwright UI mode (debugging)
-npx playwright test tests/reschedule-appointment.spec.ts   # a single flow
+npx playwright test "reschedule-appointment.spec.ts"   # a single flow
 npm run report           # open the HTML report of the last run
 ```
 

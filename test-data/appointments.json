@@ -7,14 +7,11 @@
   },
   "rescheduleAppointment": {
     "doctor": "Jorge Ramirez",
-    "newAppointmentDate": "2026-11-17",
-    "newTimeSlot": "09:00",
+    "newAppointmentDate": "2026-11-19",
+    "newTimeSlot": "10:00",
     "notes": "Jorge Ramirez -dermatology appointment"
   },
   "cancelAppointment": {
-    "doctor": "Dr. [name]",
-    "daysFromToday": 14,
-    "timeSlot": "10:00",
-    "notes": "Automated test: appointment to cancel"
+    "notes": "Ana Garcia appointment"
   }
 }
