@@ -60,15 +60,16 @@ test.describe('Book new appointemnt', () => {
     const frontDate = getFrontendDate(await appObj.getAppointmentDetails(notes))
     const frontTime = getFrontendTime(await appObj.getAppointmentDetails(notes))
 
-    expect(frontDate).toEqual(appointmentDate)
-    expect(frontTime).toEqual(timeSlot)
+    //Soft assertions so the code keeps executing if the first assertion fails
+    expect.soft(frontDate).toEqual(appointmentDate)
+    expect.soft(frontTime).toEqual(timeSlot)
 
     console.log(notes,'/n',appointmentDate,'/n',timeSlot)
 
     console.log(frontDate,'/n',frontTime)
 
 
-    await page.pause()
+    //await page.pause()
 
 
 
