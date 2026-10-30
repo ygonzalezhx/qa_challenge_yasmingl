@@ -58,11 +58,10 @@ test.describe('Reschedule appointemnt', () => {
     expect.soft(frontDate).toEqual(newAppointmentDate)
     expect.soft(frontTime).toEqual(newTimeSlot)
 
-    console.log(notes,'/n',newAppointmentDate,'/n',newTimeSlot)
+    //Check the status of the appointment after reschedule
+    expect.soft(await appObj.getAppointmentStatus(notes)).toBe("Active")
 
-    console.log(frontDate,'/n',frontTime)
-
-    await page.pause()
+    //await page.pause()
 
 })
 
