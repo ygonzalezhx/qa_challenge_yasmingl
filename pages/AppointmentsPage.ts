@@ -1,6 +1,7 @@
 import { Locator } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { getFrontendDate } from "../utils/date-helper";
+import { log } from "node:console";
 
 
 class AppointmentsPage extends BasePage{
@@ -12,6 +13,7 @@ class AppointmentsPage extends BasePage{
     confirmBtn:Locator
     successfulRescheduleMsg:Locator 
     successfulCancellationMsg:Locator 
+    logout:Locator
     
   
 
@@ -24,6 +26,7 @@ class AppointmentsPage extends BasePage{
         this.confirmBtn = page.getByRole("button", {name: 'Confirm'})
         this.successfulRescheduleMsg = page.getByText('Appointment rescheduled successfully');
         this.successfulCancellationMsg = page.getByText('Appointment successfully cancelled');
+        this.logout = page.getByText("Logout").first()
       
 
     }
@@ -75,6 +78,10 @@ class AppointmentsPage extends BasePage{
         const appointmentStatus = appointment.locator('span').filter({hasText: /^(Active|Cancelled|Confirmed|Completed)$/})
         return appointmentStatus.textContent()
     
+    }
+
+    async clickLogout(){
+        await this.logout.click()
     }
 }
 

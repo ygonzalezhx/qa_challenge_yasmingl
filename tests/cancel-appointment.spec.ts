@@ -42,7 +42,7 @@ test.describe('Cancel appointment', () => {
     await page.reload()
     expect.soft(await appObj.getAppointmentStatus(notes)).toBe("Cancelled")
 
-    //await page.pause()
+
 
 })
 

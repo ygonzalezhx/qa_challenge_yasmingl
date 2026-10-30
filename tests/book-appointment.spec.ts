@@ -69,7 +69,9 @@ test.describe('Book new appointemnt', () => {
     console.log(frontDate,'/n',frontTime)
 
 
-    //await page.pause()
+    //Logout
+
+    await appObj.clickLogout()
 
 
 
